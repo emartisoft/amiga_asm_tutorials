@@ -1,5 +1,5 @@
 *
-* Workbench Window yazarin resmi ile 10 saniye gorunur ve kapatilir
+* Workbench Window resim ile 10 saniye gorunur ve kapatilir
 * ASM-One ile wo komutu kullanarak uygulama dosyasi olustur
 *
 * dos.library acilir
