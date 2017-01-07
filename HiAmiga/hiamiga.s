@@ -15,7 +15,7 @@ start:
 		tst.l	D0			;OpenLibrary basarisiz olursa zero
 		beq.s	NoDos			;OpenLibrary basarisiz oldugunda dallan
 
-		move.l	#Message,D1		;yazdir
+		move.l	#Message,D1		;PutStr parametresi icin D1'e Message adresini yukle
 		movea.l	D0,A6			;DosLib A6ya
 		jsr	PutStr(A6)
 
