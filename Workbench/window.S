@@ -40,6 +40,7 @@ CloseWindow		EQU -72
 Delay 	EQU -198
 
 start:
+	movem.l d0-d7/a0-a6,-(a7)	;Put registers on stack
 	lea DosName,a1		;dos.library
 	moveq #0,d0		;herhangi bir sürümü için
 
@@ -89,6 +90,7 @@ closeDos:
 	
 exit:
 	clr.l d0
+	movem.l (a7)+,d0-d7/a0-a6	;Get registers from stack
 	rts				;program sonu  
 	
 	EVEN
@@ -100,7 +102,7 @@ tags	dc.l 	WA_PUBSCREEN
 workbench_p 	ds.l 1
 			dc.l WA_LEFT,100
 			dc.l WA_TOP,100
-			dc.l WA_WIDTH,250
+			dc.l WA_WIDTH,350
 			dc.l WA_HEIGHT,100
 			dc.l WA_DRAGBAR,TRUE
 			dc.l WA_TITLE,windowName

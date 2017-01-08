@@ -44,6 +44,7 @@ Delay 	EQU -198
 DrawImage	EQU -114
 
 start:
+	movem.l d0-d7/a0-a6,-(a7)	;Put registers on stack
 	lea DosName,a1		;dos.library
 	moveq #0,d0		;herhangi bir surumu icin
 
@@ -54,7 +55,7 @@ openDos:
 	
 openIntuition:
 	lea IntuitionName,a1		;intuition.library
-	moveq #36,d0				;minimum 36 surumu olarak
+	moveq #0,d0				;herhangi bir surumu olarak
 	CALLSYS OpenLibrary,AbsExecBase		;yuklenir
 	move.l d0,IntuitionBase			;yukleme 0 degil ise sonuc (d0) IntuitionBase'e kaydedilir 
 	beq closeDos			;yukleme basarisiz ise closeDos'a dallan
@@ -76,8 +77,8 @@ drawImg:
 	move.l d0,a1			;window adresi (a1)
 	move.l WD_RPORT(a1),a0	;rasport pointer
 	lea Image,a1			;pointer image
-	moveq #20,d0			;left offset
-	moveq #15,d1			;top offset
+	moveq #4,d0			;left offset
+	moveq #16,d1			;top offset
 	CALLSYS DrawImage,IntuitionBase
 	
 	move.l #TIME,d1			;10 saniye bekle
@@ -101,6 +102,7 @@ closeDos:
 	
 exit:
 	clr.l d0
+	movem.l (a7)+,d0-d7/a0-a6	;Get registers from stack
 	rts				;program sonu  
 	
 	EVEN
@@ -112,8 +114,8 @@ tags	dc.l 	WA_PUBSCREEN
 workbench_p 	ds.l 1
 			dc.l WA_LEFT,100
 			dc.l WA_TOP,100
-			dc.l WA_WIDTH,300
-			dc.l WA_HEIGHT,200
+			dc.l WA_WIDTH,340
+			dc.l WA_HEIGHT,220
 			dc.l WA_DRAGBAR,TRUE
 			dc.l WA_TITLE,windowName
 			dc.l TAG_DONE,NULL
@@ -123,5 +125,5 @@ IntuitionName dc.b 'intuition.library',NULL
 windowName dc.b 'My Picture on Amiga',NULL
 workbench_name dc.b 'Workbench',NULL
 
-	include sun-asm.raw
+	include sun.raw
 
