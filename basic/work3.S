@@ -7,6 +7,7 @@ loop:
 	add.w	(a0)+,d0	;d0'a a0'in isaret ettigi adres icerigini
 				;word olarak ekle
 	dbra	d1,loop		;d1 0 olana dek loop'a dallan
+				;d1 her dongude 1 azaltilir
 
 	lea.l	sonuc,a0	;a0'a sonuc adresini atar
 	move.l	d0,(a0)		;a0'in isaret ettigi adres icerigini d0 yap
